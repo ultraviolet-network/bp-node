@@ -22,7 +22,7 @@
 
 use std::path::PathBuf;
 
-use bpwallet::cli::{DescrStdOpts, GeneralOpts, ResolverOpt, WalletOpts};
+use bpwallet::cli::{GeneralOpts, ResolverOpt};
 
 pub const BP_NODE_CONFIG: &str = "{data_dir}/bp_node.toml";
 
@@ -30,7 +30,7 @@ pub const BP_NODE_CONFIG: &str = "{data_dir}/bp_node.toml";
 #[derive(Parser)]
 #[derive(Clone, Eq, PartialEq, Debug)]
 #[command(author, version, about)]
-pub struct Args {
+pub struct Opts {
     /// Set verbosity level.
     ///
     /// Can be used multiple times to increase verbosity.
@@ -38,19 +38,13 @@ pub struct Args {
     pub verbose: u8,
 
     #[command(flatten)]
-    pub wallet: WalletOpts<DescrStdOpts>,
-
-    #[command(flatten)]
     pub resolver: ResolverOpt,
-
-    #[clap(long, global = true)]
-    pub sync: bool,
 
     #[command(flatten)]
     pub general: GeneralOpts,
 }
 
-impl Args {
+impl Opts {
     pub fn process(&mut self) { self.general.process(); }
 
     pub fn conf_path(&self, name: &'static str) -> PathBuf {

@@ -26,10 +26,15 @@ extern crate log;
 extern crate clap;
 extern crate serde_crate as serde;
 
+mod opts;
+
 use std::process::ExitCode;
 
-use bpwallet::cli::{Args, BpCommand, Config, DescrStdOpts, Exec, ExecError, LogLevel};
+use bpwallet::cli::{ExecError, LogLevel};
 use clap::Parser;
+use netservices::node::Node;
+
+use crate::opts::Opts;
 
 fn main() -> ExitCode {
     if let Err(err) = run() {
@@ -41,16 +46,18 @@ fn main() -> ExitCode {
 }
 
 fn run() -> Result<(), ExecError> {
-    let mut args = Args::<BpCommand, DescrStdOpts>::parse();
-    args.process();
-    LogLevel::from_verbosity_flag_count(args.verbose).apply();
-    trace!("Command-line arguments: {:#?}", &args);
+    let mut opts = Opts::parse();
+    opts.process();
+    LogLevel::from_verbosity_flag_count(opts.verbose).apply();
+    trace!("Command-line arguments: {:#?}", &opts);
 
     eprintln!("BP node daemon: sovereign bitcoin wallet backend");
-    eprintln!("    by LNP/BP Standards Association\n");
+    eprintln!("    by LNP/BP Labs, Switzerland\n");
 
     // TODO: Update arguments basing on the configuration
-    let conf = Config::load(&args.conf_path("bp"));
-    debug!("Executing command: {}", args.command);
-    args.exec(conf, "bp")
+    let conf = Config::from(opts);
+
+    Node::new(conf.node_id, delegate, conf.listening_sockets)?.join()?;
+
+    Ok(())
 }

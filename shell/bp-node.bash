@@ -19,42 +19,12 @@ _bp-node() {
 
     case "${cmd}" in
         bp__node)
-            opts="-v -w -W -d -n -h -V --verbose --wallet --wallet-path --wpkh --tr-key-only --electrum --esplora --mempool --sync --data-dir --network --help --version"
+            opts="-v -d -n -h -V --verbose --electrum --esplora --mempool --data-dir --network --help --version"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
             fi
             case "${prev}" in
-                --wallet)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -w)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --wallet-path)
-                    COMPREPLY=()
-                    if [[ "${BASH_VERSINFO[0]}" -ge 4 ]]; then
-                        compopt -o plusdirs
-                    fi
-                    return 0
-                    ;;
-                -W)
-                    COMPREPLY=()
-                    if [[ "${BASH_VERSINFO[0]}" -ge 4 ]]; then
-                        compopt -o plusdirs
-                    fi
-                    return 0
-                    ;;
-                --wpkh)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --tr-key-only)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
                 --electrum)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0

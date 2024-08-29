@@ -28,7 +28,6 @@ extern crate log;
 extern crate clap;
 
 mod config;
-#[cfg(feature = "server")]
 mod bpd;
 
 pub use config::Config;

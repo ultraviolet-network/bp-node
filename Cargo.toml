@@ -21,6 +21,7 @@ sha2 = "0.10.8"
 io-reactor = "0.5.2"
 cyphernet = { version = "0.5.2", features = ["tor", "dns", "ed25519", "p2p-ed25519"] }
 netservices = { version = "0.8.1", features = ["eidolon", "io-reactor"] }
+socket2 = "0.5.7"
 
 serde_crate = { package = "serde", version = "1", features = ["derive"] }
 serde_json = "1.0.114"
@@ -63,6 +64,10 @@ required-features = ["server"]
 amplify.workspace = true
 bp-wallet = { workspace = true, features = ["cli"] }
 bp-rpc = { version = "0.11.0-alpha.1", path = "rpc" }
+io-reactor.workspace = true
+cyphernet.workspace = true
+netservices.workspace = true
+socket2.workspace = true
 serde_crate.workspace = true
 serde_json.workspace = true
 serde_yaml.workspace = true

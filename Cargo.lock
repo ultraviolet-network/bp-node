@@ -396,12 +396,16 @@ dependencies = [
  "config",
  "configure_me",
  "configure_me_codegen",
+ "cyphernet",
  "dotenv",
+ "io-reactor",
  "log",
+ "netservices",
  "serde",
  "serde_json",
  "serde_yaml",
  "shellexpand",
+ "socket2",
  "toml 0.8.19",
 ]
 
@@ -1438,7 +1442,7 @@ dependencies = [
 [[package]]
 name = "netservices"
 version = "0.8.1"
-source = "git+https://github.com/cyphernet-dao/rust-netservices?branch=develop#fd09819026bc8316c8c73a1375252ff47b8b4ff6"
+source = "git+https://github.com/cyphernet-dao/rust-netservices?branch=develop#20d0d51c1a34112e8100207555bd4edec7d927ab"
 dependencies = [
  "amplify",
  "cyphernet",
